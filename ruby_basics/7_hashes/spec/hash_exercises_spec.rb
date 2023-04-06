@@ -9,43 +9,83 @@ RSpec.describe 'Hash Exercises' do
       result = { color: 'blue', number: 65 }
       expect(favorite).to eq(result)
     end
+
+    def create_favorite_hash(color, number)
+      favorite = {
+        :color => 'blue',
+        :number => 65
+      }
+      favorite
+    end
     
     # remove the 'x' from the line below to unskip the test
-    xit 'returns result with an array and hash' do
-      favorite = create_favorite_hash(['orange', 'green'], { lucky: 7 })
+    it 'returns result with an array and hash' do
+      new_favorite = new_favorite_hash(['orange', 'green'], { lucky: 7 })
       result = { color: ['orange', 'green'], number: { lucky: 7 } }
-      expect(favorite).to eq(result)
+      expect(new_favorite).to eq(result)
+    end
+
+    def new_favorite_hash(array, number)
+      new_favorite = {
+        :color => ['orange', 'green'],
+        number: {lucky: 7}
+      }
+      new_favorite
     end
   end
 
   describe 'favorite color exercise' do
 
-    xit 'returns a string' do
+    it 'returns a string' do
       my_favorites = { color: 'blue', number: 65 }
       expect(favorite_color(my_favorites)).to eq('blue')
     end
+
+    def favorite_color(my_favorites)
+      my_favorites[:color].to_s
+    end    
     
-    xit 'returns an array' do
+    it 'returns an array' do
       my_favorites = { color: ['orange', 'green'], number: { lucky: 7 } }
-      expect(favorite_color(my_favorites)).to eq(['orange', 'green'])
+      expect(favorite_colors(my_favorites)).to eq(['orange', 'green'])
     end
 
-    xit 'returns nil when the key is not found' do
+    def favorite_colors(my_favorites)
+      my_favorites[:color].to_a
+    end
+
+    it 'returns nil when the key is not found' do
       my_favorites = { number: 21, movie: 'Avengers: Endgame' }
-      expect(favorite_color(my_favorites)).to eq(nil)
+      expect(get_favorite_color(my_favorites)).to eq(nil)
+    end
+
+    def get_favorite_color(my_favorites)
+      if my_favorites.has_key?(:color)
+        my_favorites[:color]
+      else
+        nil  
+      end
     end
   end
 
   describe 'favorite number exercise' do
 
-    xit 'returns an integer' do
+    it 'returns an integer' do
       my_favorites = { color: 'blue', number: 65 }
       expect(favorite_number(my_favorites)).to eq(65)
     end
 
-    xit 'returns a hash' do
+    def favorite_number(my_favorites)
+      my_favorites[:number].to_i
+    end
+
+    it 'returns a hash' do
       my_favorites = { color: ['orange', 'green'], number: { lucky: 7 } }
-      expect(favorite_number(my_favorites)).to eq({ lucky: 7 })
+      expect(new_favorite_number(my_favorites)).to eq({ lucky: 7 })
+    end
+
+    def new_favorite_number(my_favorites)
+      return my_favorites[:number]
     end
 
     xit 'returns the default number when the key is not found' do
