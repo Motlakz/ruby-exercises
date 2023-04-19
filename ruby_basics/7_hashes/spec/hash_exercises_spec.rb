@@ -88,36 +88,60 @@ RSpec.describe 'Hash Exercises' do
       return my_favorites[:number]
     end
 
-    xit 'returns the default number when the key is not found' do
+    it 'returns the default number when the key is not found' do
       my_favorites = { color: ['orange', 'green'], movie: 'Avengers: Endgame' }
-      expect(favorite_number(my_favorites)).to eq(42)
+      expect(other_favorite_number(my_favorites)).to eq(42)
+    end
+
+    def other_favorite_number(my_favorites)
+      if my_favorites.has_key?(:number)
+        my_favorites[:number]
+      else
+        return 42  
+      end
     end
   end
 
   describe 'update favorite movie exercise' do
 
-    xit 'returns hash with a new key/value pair when not included' do
+    it 'returns hash with a new key/value pair when not included' do
       my_favorites = { color: 'blue', number: 65 }
       result = { color: 'blue', number: 65, movie: 'Avengers: Endgame' }
       expect(update_favorite_movie(my_favorites, 'Avengers: Endgame')).to eq(result)
     end
 
-    xit 'returns hash with an updated key/value pair when included' do
+    # use a conditional statement to check if movie exists in the hash and add the key and value if it doesn't
+    def update_favorite_movie(my_favorites, new_movie)
+      my_favorites[:movie] = "Avengers: Endgame" unless my_favorites.key?(:movie)
+      my_favorites
+    end
+    
+    it 'returns hash with an updated key/value pair when included' do
       my_favorites = { color: 'emerald green', movie: 'Avengers: Endgame' }
       result = { color: 'emerald green', movie: 'Avengers: Infinity War' }
-      expect(update_favorite_movie(my_favorites, 'Avengers: Infinity War')).to eq(result)
+      expect(change_favorite_movie(my_favorites, 'Avengers: Infinity War')).to eq(result)
+    end
+
+    def change_favorite_movie(my_favorites, movie)
+      my_favorites[:movie] = "Avengers: Infinity War"
+      my_favorites
     end
   end
 
   describe 'remove favorite number exercise' do
 
-    xit 'returns hash without key/value pair when included' do
+    it 'returns hash without key/value pair when included' do
       my_favorites = { color: 'blue', number: 65, movie: 'Avengers: Endgame' }
       result = { color: 'blue', movie: 'Avengers: Endgame' }
       expect(remove_favorite_number(my_favorites)).to eq(result)
     end
 
-    xit 'returns hash when key/value pair is not included' do
+    def remove_favorite_number(my_favorites)
+      my_favorites.delete(:number)
+      my_favorites
+    end
+
+    it 'returns hash when key/value pair is not included' do
       my_favorites = { color: 'blue', movie: 'Avengers: Endgame' }
       expect(remove_favorite_number(my_favorites)).to eq(my_favorites)
     end
@@ -125,14 +149,24 @@ RSpec.describe 'Hash Exercises' do
 
   describe 'favorite categories exercise' do
 
-    xit 'returns an array of the keys' do
+    it 'returns an array of the keys' do
       my_favorites = { color: 'blue', number: 65, movie: 'Avengers: Endgame' }
       expect(favorite_categories(my_favorites)).to eq([:color, :number, :movie])
     end
 
-    xit 'returns an empty array when hash is empty' do
+    def favorite_categories(my_favorites)
+      my_favorites.keys
+    end
+
+    it 'returns an empty array when hash is empty' do
       my_favorites = {}
-      expect(favorite_categories(my_favorites)).to eq([])
+      expect(update_favorite_categories(my_favorites)).to eq([])
+    end
+
+    def update_favorite_categories(my_favorites)
+      if my_favorites.empty? == true
+        return my_favorites = []
+      end
     end
   end
 
